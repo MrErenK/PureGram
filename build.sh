@@ -5,12 +5,6 @@ set -e
 CMAKE_OSX_ARCHITECTURES="arm64e;arm64"
 CMAKE_OSX_SYSROOT="iphoneos"
 
-# Prerequisites
-if [ -z "$(ls -A modules/FLEXing)" ]; then
-    echo -e '\033[1m\033[0;31mFLEXing submodule not found.\nPlease run the following command to checkout submodules:\n\n\033[0m    git submodule update --init --recursive'
-    exit 1
-fi
-
 # Building modes
 if [ "$1" == "sideload" ];
 then
@@ -26,40 +20,29 @@ then
         exit 1
     fi
 
-    echo -e '\033[1m\033[32mBuilding SCInsta tweak for sideloading (as IPA)\033[0m'
-
-    # Check if building with dev mode
-    if [ "$2" == "--dev" ];
-    then
-        FLEXPATH='packages/FLEXing.dylib packages/libflex.dylib'
-
-        make "DEV=1"
-    else
-        FLEXPATH='.theos/obj/debug/FLEXing.dylib .theos/obj/debug/libflex.dylib'
-
-        make "SIDELOAD=1"
-    fi
+    echo -e '\033[1m\033[32mBuilding PureGram tweak for sideloading (as IPA)\033[0m'
+    make "SIDELOAD=1"
 
     # Create IPA File
     echo -e '\033[1m\033[32mCreating the IPA file...\033[0m'
-    rm -f packages/SCInsta-sideloaded.ipa
-    cyan -i "packages/${ipaFile}" -o packages/SCInsta-sideloaded.ipa -f .theos/obj/debug/SCInsta.dylib .theos/obj/debug/sideloadfix.dylib $FLEXPATH -c 0 -m 15.0 -du
-    
-    echo -e "\033[1m\033[32mDone, we hope you enjoy SCInsta!\033[0m\n\nYou can find the ipa file at: $(pwd)/packages"
+    rm -f packages/PureGram-sideloaded.ipa
+    cyan -i "packages/${ipaFile}" -o packages/PureGram-sideloaded.ipa -f .theos/obj/debug/PureGram.dylib .theos/obj/debug/sideloadfix.dylib -c 0 -m 15.0 -du
+
+    echo -e "\033[1m\033[32mDone, we hope you enjoy PureGram!\033[0m\n\nYou can find the ipa file at: $(pwd)/packages"
 
 elif [ "$1" == "rootless" ];
 then
-    
+
     # Clean build artifacts
     make clean
     rm -rf .theos
 
-    echo -e '\033[1m\033[32mBuilding SCInsta tweak for rootless\033[0m'
+    echo -e '\033[1m\033[32mBuilding PureGram tweak for rootless\033[0m'
 
     export THEOS_PACKAGE_SCHEME=rootless
     make package
 
-    echo -e "\033[1m\033[32mDone, we hope you enjoy SCInsta!\033[0m\n\nYou can find the deb file at: $(pwd)/packages"
+    echo -e "\033[1m\033[32mDone, we hope you enjoy PureGram!\033[0m\n\nYou can find the deb file at: $(pwd)/packages"
 
 elif [ "$1" == "rootful" ];
 then
@@ -68,16 +51,16 @@ then
     make clean
     rm -rf .theos
 
-    echo -e '\033[1m\033[32mBuilding SCInsta tweak for rootful\033[0m'
+    echo -e '\033[1m\033[32mBuilding PureGram tweak for rootful\033[0m'
 
     unset THEOS_PACKAGE_SCHEME
     make package
 
-    echo -e "\033[1m\033[32mDone, we hope you enjoy SCInsta!\033[0m\n\nYou can find the deb file at: $(pwd)/packages"
+    echo -e "\033[1m\033[32mDone, we hope you enjoy PureGram!\033[0m\n\nYou can find the deb file at: $(pwd)/packages"
 
 else
     echo '+--------------------+'
-    echo '|SCInsta Build Script|'
+    echo '|PureGram Build Script|'
     echo '+--------------------+'
     echo
     echo 'Usage: ./build.sh <sideload/rootless/rootful>'

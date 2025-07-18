@@ -4,7 +4,7 @@ ARCHS = arm64
 
 include $(THEOS)/makefiles/common.mk
 
-TWEAK_NAME = SCInsta
+TWEAK_NAME = PureGram
 
 $(TWEAK_NAME)_FILES = $(shell find src -type f \( -iname \*.x -o -iname \*.xm -o -iname \*.m \)) $(wildcard modules/JGProgressHUD/*.m)
 $(TWEAK_NAME)_FRAMEWORKS = UIKit Foundation CoreGraphics Photos CoreServices SystemConfiguration SafariServices Security QuartzCore
@@ -17,15 +17,6 @@ CCFLAGS += -std=c++11
 
 include $(THEOS_MAKE_PATH)/tweak.mk
 
-# Dev mode (skip building FLEX)
-ifdef DEV
-	$(TWEAK_NAME)_SUBPROJECTS += modules/sideloadfix
-else
-
-	ifdef SIDELOAD
-		$(TWEAK_NAME)_SUBPROJECTS += modules/sideloadfix modules/flexing
-	else
-		$(TWEAK_NAME)_SUBPROJECTS += modules/flexing
-	endif
-
+ifdef SIDELOAD
+		$(TWEAK_NAME)_SUBPROJECTS += modules/sideloadfix
 endif

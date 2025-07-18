@@ -1,8 +1,8 @@
 #import "Manager.h"
-#include "QuickLook.h"
+#import "QuickLook.h"
 #import "InstagramHeaders.h"
 
-@implementation SCIManager
+@implementation PGManager
 + (BOOL)getBoolPref:(NSString *)key {
     if (![key length] || [[NSUserDefaults standardUserDefaults] objectForKey:key] == nil) return false;
 
@@ -31,11 +31,11 @@
     [fileManager removeItemAtURL:[[NSURL alloc] initFileURLWithPath:analyticsFolder] error:&analyticsFolderError];
 
     if (analyticsFolderError) [deletionErrors addObject:analyticsFolderError];
-    
+
     // Caches folder
     NSString *cachesFolder = [[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"Caches"];
     NSArray *cachesFolderContents = [fileManager contentsOfDirectoryAtURL:[[NSURL alloc] initFileURLWithPath:cachesFolder] includingPropertiesForKeys:nil options:NSDirectoryEnumerationSkipsHiddenFiles error:nil];
-    
+
     for (NSURL *fileURL in cachesFolderContents) {
         NSError *cacheItemDeletionError;
         [fileManager removeItemAtURL:fileURL error:&cacheItemDeletionError];
@@ -47,7 +47,7 @@
     if (deletionErrors.count > 1) {
 
         for (NSError *error in deletionErrors) {
-            NSLog(@"[SCInsta] File Deletion Error: %@", error);
+            NSLog(@"[PureGram] File Deletion Error: %@", error);
         }
 
     }
@@ -60,7 +60,7 @@
     QuickLookDelegate *quickLookDelegate = [[QuickLookDelegate alloc] initWithPreviewItemURLs:items];
 
     previewController.dataSource = quickLookDelegate;
-    
+
     [topMostController() presentViewController:previewController animated:true completion:nil];
 }
 + (void)showShareVC:(id)item {

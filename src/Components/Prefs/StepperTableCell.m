@@ -1,7 +1,9 @@
 #import "StepperTableCell.h"
+#import "../../Manager.h"
+#import "../../Utils.h"
 #include <Foundation/Foundation.h>
 
-@implementation SCIStepperTableCell
+@implementation PGStepperTableCell
 
 // adapted from PHVerticalAdjustmentTableCell
 
@@ -34,7 +36,7 @@
 /* * PSControlTableCell * */
 
 - (UIStepper *)newControl {
-	UIStepper *stepper = [[UIStepper alloc] initWithFrame:CGRectZero];    
+	UIStepper *stepper = [[UIStepper alloc] initWithFrame:CGRectZero];
 	stepper.continuous = NO;
 
 	return stepper;
@@ -60,7 +62,7 @@
 	}
 
     double value = self.control.value;
-        
+
     // Singular or plural labels
     NSString *label;
 
@@ -72,7 +74,7 @@
     }
 
     // Get correct decimal value based on step value
-    NSUInteger valueDecimalPoints = [SCIUtils decimalPlacesInDouble:value];
+    NSUInteger valueDecimalPoints = [PGUtils decimalPlacesInDouble:value];
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     [formatter setNumberStyle:valueDecimalPoints ? NSNumberFormatterDecimalStyle : NSNumberFormatterNoStyle];
     [formatter setMaximumFractionDigits:valueDecimalPoints];

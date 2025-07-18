@@ -1,9 +1,9 @@
-Package: com.socuul.scinsta
-Name: SCInsta
-Version: 0.7.1
+Package: com.mrerenk.puregram
+Name: PureGram
+Version: 0.0.1
 Architecture: iphoneos-arm
 Description: A feature-rich tweak for Instagram on iOS!
-Maintainer: SoCuul
-Author: SoCuul
+Maintainer: MrErenK
+Author: SoCuul, MrErenK
 Section: Tweaks
 Depends: mobilesubstrate, ws.hbang.common

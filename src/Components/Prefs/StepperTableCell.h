@@ -6,7 +6,7 @@
 
 #import "StepperTableCell.h"
 
-@interface SCIStepperTableCell : PSControlTableCell
+@interface PGStepperTableCell : PSControlTableCell
 
 @property (nonatomic, retain) UIStepper *control;
 

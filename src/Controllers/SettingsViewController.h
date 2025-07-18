@@ -24,7 +24,7 @@ typedef NS_ENUM(NSInteger, DynamicSpecifierOperatorType) {
     LessThanOperatorType,
 };
 
-@interface SCISettingsViewController : HBListController
+@interface PGSettingsViewController : HBListController
 - (instancetype)init;
 - (PSSpecifier *)newSectionWithTitle:(NSString *)header footer:(NSString *)footer;
 - (PSSpecifier *)newSwitchCellWithTitle:(NSString *)titleText detailTitle:(NSString *)detailText key:(NSString *)keyText changeAction:(SEL)changeAction;

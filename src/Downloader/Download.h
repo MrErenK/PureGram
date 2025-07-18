@@ -8,7 +8,7 @@
 
 #import "Manager.h"
 
-@interface SCIDownloadDelegate : NSObject <SCIDownloadDelegateProtocol>
+@interface PGDownloadDelegate : NSObject <PGDownloadDelegateProtocol>
 
 typedef NS_ENUM(NSUInteger, DownloadAction) {
     share,
@@ -17,7 +17,7 @@ typedef NS_ENUM(NSUInteger, DownloadAction) {
 @property (nonatomic, readonly) DownloadAction action;
 @property (nonatomic, readonly) BOOL showProgress;
 
-@property (nonatomic, strong) SCIDownloadManager *downloadManager;
+@property (nonatomic, strong) PGDownloadManager *downloadManager;
 @property (nonatomic, strong) JGProgressHUD *hud;
 
 - (instancetype)initWithAction:(DownloadAction)action showProgress:(BOOL)showProgress;

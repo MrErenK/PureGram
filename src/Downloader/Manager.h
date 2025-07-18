@@ -1,7 +1,7 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
-@protocol SCIDownloadDelegateProtocol <NSObject>
+@protocol PGDownloadDelegateProtocol <NSObject>
 
 // Methods
 - (void)downloadDidStart;
@@ -12,16 +12,16 @@
 
 @end
 
-@interface SCIDownloadManager : NSObject <NSURLSessionDownloadDelegate>
+@interface PGDownloadManager : NSObject <NSURLSessionDownloadDelegate>
 
 // Properties
-@property (nonatomic, weak) id<SCIDownloadDelegateProtocol> delegate;
+@property (nonatomic, weak) id<PGDownloadDelegateProtocol> delegate;
 @property (nonatomic, strong) NSURLSession *session;
 @property (nonatomic, strong) NSURLSessionDownloadTask *task;
 @property (nonatomic, strong) NSString *fileExtension;
 
 // Methods
-- (instancetype)initWithDelegate:(id<SCIDownloadDelegateProtocol>)downloadDelegate;
+- (instancetype)initWithDelegate:(id<PGDownloadDelegateProtocol>)downloadDelegate;
 
 - (void)downloadFileWithURL:(NSURL *)url fileExtension:(NSString *)fileExtension;
 

@@ -2,10 +2,10 @@
 #import "Utils.h"
 #import "InstagramHeaders.h"
 
-@implementation SCIUtils
+@implementation PGUtils
 
 // Colours
-+ (UIColor *)SCIColour_Primary {
++ (UIColor *)PGColour_Primary {
     return [UIColor colorWithRed:0/255.0 green:152/255.0 blue:254/255.0 alpha:1];
 };
 
@@ -14,7 +14,7 @@
     return [self errorWithDescription:errorDesc code:1];
 }
 + (NSError *)errorWithDescription:(NSString *)errorDesc code:(NSInteger)errorCode {
-    NSError *error = [ NSError errorWithDomain:@"com.socuul.scinsta" code:errorCode userInfo:@{ NSLocalizedDescriptionKey: errorDesc } ];
+    NSError *error = [ NSError errorWithDomain:@"com.socuul.puregram" code:errorCode userInfo:@{ NSLocalizedDescriptionKey: errorDesc } ];
     return error;
 }
 
@@ -46,7 +46,7 @@
 
     IGPhoto *photo = media.photo;
 
-    return [SCIUtils getPhotoUrl:photo];
+    return [PGUtils getPhotoUrl:photo];
 }
 
 + (NSURL *)getVideoUrl:(IGVideo *)video {
@@ -67,7 +67,7 @@
     IGVideo *video = media.video;
     if (!video) return nil;
 
-    return [SCIUtils getVideoUrl:video];
+    return [PGUtils getVideoUrl:video];
 }
 
 // View Controllers

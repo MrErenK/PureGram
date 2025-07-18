@@ -1,10 +1,10 @@
 #import "Manager.h"
 
-@implementation SCIDownloadManager
+@implementation PGDownloadManager
 
-- (instancetype)initWithDelegate:(id<SCIDownloadDelegateProtocol>)downloadDelegate {
+- (instancetype)initWithDelegate:(id<PGDownloadDelegateProtocol>)downloadDelegate {
     self = [super init];
-    
+
     if (self) {
         self.delegate = downloadDelegate;
     }
@@ -16,7 +16,7 @@
     // Properties
     self.session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:nil];
     self.task = [self.session downloadTaskWithURL:url];
-    
+
     // Default to jpg if no other reasonable length extension is provided
     self.fileExtension = [fileExtension length] >= 3 ? fileExtension : @"jpg";
 
@@ -32,13 +32,13 @@
 // URLSession methods
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
     NSLog(@"Task wrote %lld bytes of %lld bytes", bytesWritten, totalBytesExpectedToWrite);
-    
+
     float progress = (float)totalBytesWritten / (float)totalBytesExpectedToWrite;
 
     [self.delegate downloadDidProgress:progress];
 }
 
-- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {    
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
     // Move downloaded file to cache directory
     NSURL *finalLocation = [self moveFileToCacheDir:location];
 
@@ -47,7 +47,7 @@
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
     NSLog(@"Task completed with error: %@", error);
-    
+
     [self.delegate downloadDidFinishWithError:error];
 }
 
@@ -57,16 +57,16 @@
 
     NSString *cacheDirectoryPath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
     NSURL *newPath = [[NSURL fileURLWithPath:cacheDirectoryPath] URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@", NSUUID.UUID.UUIDString, self.fileExtension]];
-    
-    NSLog(@"[SCInsta] Download Handler: Moving file from: %@ to: %@", oldPath.absoluteString, newPath.absoluteString);
+
+    NSLog(@"[PureGram] Download Handler: Moving file from: %@ to: %@", oldPath.absoluteString, newPath.absoluteString);
 
     // Move file to cache directory
     NSError *fileMoveError;
     [fileManager moveItemAtURL:oldPath toURL:newPath error:&fileMoveError];
 
     if (fileMoveError) {
-        NSLog(@"[SCInsta] Download Handler: Error while moving file: %@", oldPath.absoluteString);
-        NSLog(@"[SCInsta] Download Handler: %@", fileMoveError);
+        NSLog(@"[PureGram] Download Handler: Error while moving file: %@", oldPath.absoluteString);
+        NSLog(@"[PureGram] Download Handler: %@", fileMoveError);
     }
 
     return newPath;

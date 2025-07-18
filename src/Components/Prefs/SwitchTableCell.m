@@ -1,6 +1,7 @@
 #import "SwitchTableCell.h"
+#import "../../Utils.h"
 
-@implementation SCISwitchTableCell
+@implementation PGSwitchTableCell
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier {
     if ((self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier specifier:specifier])) {
         NSString *subTitle = [specifier.properties[@"subtitle"] copy];
@@ -10,8 +11,8 @@
         self.detailTextLabel.textColor = [UIColor secondaryLabelColor];
 
         UISwitch *targetSwitch = ((UISwitch *)[self control]);
-        [targetSwitch setOnTintColor:[SCIUtils SCIColour_Primary]];
-        
+        [targetSwitch setOnTintColor:[PGUtils PGColour_Primary]];
+
         if (specifier.properties[@"switchAction"]) {
             NSString *strAction = [specifier.properties[@"switchAction"] copy];
             [targetSwitch addTarget:[self cellTarget] action:NSSelectorFromString(strAction) forControlEvents:UIControlEventValueChanged];

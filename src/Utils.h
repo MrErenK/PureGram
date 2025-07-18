@@ -3,10 +3,10 @@
 #import "../modules/JGProgressHUD/JGProgressHUD.h"
 #import "./InstagramHeaders.h"
 
-@interface SCIUtils : NSObject
+@interface PGUtils : NSObject
 
 // Colours
-+ (UIColor *)SCIColour_Primary;
++ (UIColor *)PGColour_Primary;
 
 // Errors
 + (NSError *)errorWithDescription:(NSString *)errorDesc;

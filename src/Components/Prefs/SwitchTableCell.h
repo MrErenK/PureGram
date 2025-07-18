@@ -2,5 +2,5 @@
 
 #import "../../Utils.h"
 
-@interface SCISwitchTableCell : PSSwitchTableCell
+@interface PGSwitchTableCell : PSSwitchTableCell
 @end

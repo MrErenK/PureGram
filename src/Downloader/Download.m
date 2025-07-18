@@ -1,17 +1,17 @@
 #import "Download.h"
 
-@implementation SCIDownloadDelegate
+@implementation PGDownloadDelegate
 
 - (instancetype)initWithAction:(DownloadAction)action showProgress:(BOOL)showProgress {
     self = [super init];
-    
+
     if (self) {
         // Read-only properties
         _action = action;
         _showProgress = showProgress;
 
         // Properties
-        self.downloadManager = [[SCIDownloadManager alloc] initWithDelegate:self];
+        self.downloadManager = [[PGDownloadManager alloc] initWithDelegate:self];
         self.hud = [[JGProgressHUD alloc] init];
     }
 
@@ -39,7 +39,7 @@
 
     [self.hud showInView:topMostController().view];
 
-    NSLog(@"[SCInsta] Download: Will start download for url \"%@\" with file extension: \".%@\"", url, fileExtension);
+    NSLog(@"[PureGram] Download: Will start download for url \"%@\" with file extension: \".%@\"", url, fileExtension);
 
     // Start download using manager
     [self.downloadManager downloadFileWithURL:url fileExtension:fileExtension];
@@ -47,16 +47,16 @@
 
 // Delegate methods
 - (void)downloadDidStart {
-    NSLog(@"[SCInsta] Download: Download started");
+    NSLog(@"[PureGram] Download: Download started");
 }
 - (void)downloadDidCancel {
     [self.hud dismiss];
 
-    NSLog(@"[SCInsta] Download: Download cancelled");
+    NSLog(@"[PureGram] Download: Download cancelled");
 }
 - (void)downloadDidProgress:(float)progress {
-    NSLog(@"[SCInsta] Download: Download progress: %f", progress);
-    
+    NSLog(@"[PureGram] Download: Download progress: %f", progress);
+
     if (self.showProgress) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.hud setProgress:progress animated:false];
@@ -68,8 +68,8 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         // Check if it actually errored (not cancelled)
         if (error && error.code != NSURLErrorCancelled) {
-            NSLog(@"[SCInsta] Download: Download failed with error: \"%@\"", error);
-            [SCIUtils showErrorHUDWithDescription:@"Error, try again later"];
+            NSLog(@"[PureGram] Download: Download failed with error: \"%@\"", error);
+            [PGUtils showErrorHUDWithDescription:@"Error, try again later"];
         }
     });
 }
@@ -77,16 +77,16 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.hud dismiss];
 
-        NSLog(@"[SCInsta] Download: Download finished with url: \"%@\"", [fileURL absoluteString]);
-        NSLog(@"[SCInsta] Download: Completed with action %d", (int)self.action);
+        NSLog(@"[PureGram] Download: Download finished with url: \"%@\"", [fileURL absoluteString]);
+        NSLog(@"[PureGram] Download: Completed with action %d", (int)self.action);
 
         switch (self.action) {
             case share:
-                [SCIManager showShareVC:fileURL];
+                [PGManager showShareVC:fileURL];
                 break;
-            
+
             case quickLook:
-                [SCIManager showQuickLookVC:@[fileURL]];
+                [PGManager showQuickLookVC:@[fileURL]];
                 break;
         }
     });

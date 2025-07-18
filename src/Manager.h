@@ -4,7 +4,7 @@
 
 #import "QuickLook.h"
 
-@interface SCIManager : NSObject
+@interface PGManager : NSObject
 
 + (BOOL)getBoolPref:(NSString *)key;
 + (double)getDoublePref:(NSString *)key;
